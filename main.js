@@ -4,6 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Setup
 
+
+
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -83,7 +86,7 @@ loader.load('/Source Code Pro Light_Regular.json', function (font) {
   }))
   scene.add(textmesh)
   textmesh.position.z =-3  
-  textmesh.position.x = -0.75
+  textmesh.position.x = -0.55 
 
 })
 
@@ -108,17 +111,34 @@ scene.add(moon);
 moon.position.z = 30;
 moon.position.setX(-10);
 
+const moon2 = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    wireframe: true,
+  })
+);
+
+scene.add(moon2);
+
+moon2.position.z = 40;
+moon2.position.setX(10);
+moon2.position.y=-2;
+
 
 // Scroll Animation
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  moon.rotation.x += 0.05;
-  moon.rotation.y += 0.075;
-  moon.rotation.z += 0.05;
+  moon.rotation.x += 0.005;
+  moon.rotation.y += 0.0075;
+  moon.rotation.z += 0.005;
   
+  moon2.rotation.x += 0.005;
+  moon2.rotation.y += 0.0075;
+  moon2.rotation.z += 0.005;
 
-  camera.position.z = t * -0.01;
+  camera.position.z = t * -0.02;
   camera.position.x = t * -0.0002;
 }
 
@@ -130,12 +150,13 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
 
-  torus.rotation.x += 0.01;
+  torus.rotation.x += 0.001;
   torus.rotation.y += 0.005;
-  torus.rotation.z += 0.01;
+  torus.rotation.z += 0.001;
 
   moon.rotation.x += 0.005;
-  
+  moon2.rotation.x += 0.005;
+  moon2.rotation.y+=0.003;
 
 
   // controls.update();
@@ -144,3 +165,12 @@ function animate() {
 }
 
 animate();
+
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
